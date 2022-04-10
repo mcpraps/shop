@@ -2,14 +2,21 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
-{
+/**
+ * Class ProductCategory
+ *
+ * @package App\Models
+ * @author Kovacs Mate
+ * @copyright 2022 Kovacs Mate
+ */
+class User extends Authenticatable {
+
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -18,10 +25,21 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+		'username',
+	    'password',
+	    'is_active',
+	    'first_name',
+	    'last_name',
         'email',
-        'password',
+        'phone',
     ];
+
+	/**
+	 * @var false[] $attributes
+	 */
+	protected $attributes = [
+		'is_active' => false
+	];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -40,5 +58,24 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+	    'is_active' => 'boolean'
     ];
+
+
+	/**
+	 * @return HasMany
+	 */
+	public function userAddresses(): HasMany {
+		return $this->hasMany(UserAddress::class);
+	}
+
+
+	/**
+	 * @return HasMany
+	 */
+	public function orders(): HasMany {
+		return $this->hasMany(Order::class);
+	}
+
+
 }
