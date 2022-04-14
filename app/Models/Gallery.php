@@ -40,7 +40,7 @@ class Gallery extends Model {
 	 * @return MorphMany
 	 */
 	public function images(): MorphMany {
-		return $this->morphMany(File::class,'type');
+		return $this->morphMany(File::class,'owner');
 	}
 
 

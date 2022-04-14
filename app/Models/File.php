@@ -47,7 +47,7 @@ class File extends Model {
 	 * @return MorphTo
 	 */
 	public function gallery(): MorphTo {
-		return $this->morphTo(Gallery::class);
+		return $this->morphTo('owner');
 	}
 
 
@@ -55,7 +55,7 @@ class File extends Model {
 	 * @return MorphTo
 	 */
 	public function post(): MorphTo {
-		return $this->morphTo(Post::class);
+		return $this->morphTo('owner');
 	}
 
 
@@ -63,7 +63,7 @@ class File extends Model {
 	 * @return MorphTo
 	 */
 	public function product(): MorphTo {
-		return $this->morphTo(Product::class);
+		return $this->morphTo('owner');
 	}
 
 
@@ -71,7 +71,7 @@ class File extends Model {
 	 * @return MorphTo
 	 */
 	public function messageStream(): MorphTo {
-		return $this->morphTo(MessageStream::class);
+		return $this->morphTo('owner');
 	}
 
 

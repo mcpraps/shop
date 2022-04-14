@@ -39,7 +39,7 @@ class MessageStream extends Model {
 	 * @return MorphMany
 	 */
 	public function attachments(): MorphMany {
-		return $this->morphMany(File::class,'type');
+		return $this->morphMany(File::class,'owner');
 	}
 
 
