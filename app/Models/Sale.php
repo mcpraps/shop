@@ -37,14 +37,6 @@ class Sale extends Model {
 	/**
 	 * @return BelongsTo
 	 */
-	public function adminUser(): BelongsTo {
-		return $this->belongsTo(AdminUser::class);
-	}
-
-
-	/**
-	 * @return BelongsTo
-	 */
 	public function physicalStore(): BelongsTo {
 		return $this->belongsTo(PhysicalStore::class);
 	}
@@ -79,6 +71,22 @@ class Sale extends Model {
 	 */
 	public function productVariation(): BelongsTo {
 		return $this->belongsTo(ProductVariation::class);
+	}
+
+
+	/**
+	 * @return BelongsTo
+	 */
+	public function createdBy(): BelongsTo {
+		return $this->belongsTo(AdminUser::class, "created_by");
+	}
+
+
+	/**
+	 * @return BelongsTo
+	 */
+	public function updatedBy(): BelongsTo {
+		return $this->belongsTo(AdminUser::class, "updated_by");
 	}
 
 

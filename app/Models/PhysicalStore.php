@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -48,14 +49,6 @@ class PhysicalStore extends Model {
 	/**
 	 * @return HasMany
 	 */
-	public function adminUsers(): HasMany {
-		return $this->hasMany(AdminUser::class);
-	}
-
-
-	/**
-	 * @return HasMany
-	 */
 	public function calendarNotes(): HasMany {
 		return $this->hasMany(CalendarNote::class);
 	}
@@ -74,6 +67,30 @@ class PhysicalStore extends Model {
 	 */
 	public function sales(): HasMany {
 		return $this->hasMany(Sale::class);
+	}
+
+
+	/**
+	 * @return HasMany
+	 */
+	public function inventories(): HasMany {
+		return $this->hasMany(Inventory::class);
+	}
+
+
+	/**
+	 * @return BelongsTo
+	 */
+	public function createdBy(): BelongsTo {
+		return $this->belongsTo(AdminUser::class, "created_by");
+	}
+
+
+	/**
+	 * @return BelongsTo
+	 */
+	public function updatedBy(): BelongsTo {
+		return $this->belongsTo(AdminUser::class, "updated_by");
 	}
 
 

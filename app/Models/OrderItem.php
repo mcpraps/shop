@@ -17,6 +17,13 @@ class OrderItem extends Model {
 
     use HasFactory;
 
+	/**
+	 * @var string[] $fillable
+	 */
+	protected $fillable = [
+		'price'
+	];
+
 
 	/**
 	 * @return BelongsTo

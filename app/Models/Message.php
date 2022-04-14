@@ -5,40 +5,40 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * Class OutgoingInvoice
+ * Class Message
  *
  * @package App\Models
  * @author Kovacs Mate
  * @copyright 2022 Kovacs Mate
  */
-class OutgoingInvoice extends Model {
+class Message extends Model {
 
     use HasFactory;
 
-
 	/**
 	 * @return BelongsTo
 	 */
-	public function partner(): BelongsTo {
-		return $this->belongsTo(Partner::class);
+	public function from(): BelongsTo {
+		return $this->belongsTo(AdminUser::class);
 	}
 
 
 	/**
 	 * @return BelongsTo
 	 */
-	public function createdBy(): BelongsTo {
-		return $this->belongsTo(AdminUser::class, "created_by");
+	public function to(): BelongsTo {
+		return $this->belongsTo(AdminUser::class);
 	}
 
 
 	/**
-	 * @return BelongsTo
+	 * @return HasMany
 	 */
-	public function updatedBy(): BelongsTo {
-		return $this->belongsTo(AdminUser::class, "updated_by");
+	public function messageStream(): HasMany {
+		return $this->hasMany(MessageStream::class);
 	}
 
 

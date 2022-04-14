@@ -5,59 +5,73 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 /**
- * Class ProductCategory
+ * Class File
  *
  * @package App\Models
  * @author Kovacs Mate
  * @copyright 2022 Kovacs Mate
  */
-class ProductCategory extends Model {
+class File extends Model {
 
     use HasFactory;
 
 	/**
-	 * @var string[] $fillable
+	 * @var array $fillable
 	 */
 	protected $fillable = [
 		'name',
-		'slug',
-		'order',
-		'hide_from_shop'
+		'description',
+		'path',
+		'is_default'
+	];
+
+	/**
+	 * @var false[] $attributes
+	 */
+	protected $attributes = [
+		'is_default' => false,
 	];
 
 	/**
 	 * @var string[] $casts
 	 */
 	protected $casts = [
-		'hide_from_shop' => 'boolean'
+		'is_default' => 'boolean'
 	];
 
 
 	/**
-	 * @return BelongsTo
+	 * @return MorphTo
 	 */
-	public function parentCategory(): BelongsTo {
-		return $this->belongsTo(ProductCategory::class, "parent_id");
+	public function gallery(): MorphTo {
+		return $this->morphTo(Gallery::class);
 	}
 
 
 	/**
-	 * @return HasMany
+	 * @return MorphTo
 	 */
-	public function childrenCategories(): HasMany {
-		return $this->hasMany(ProductCategory::class, "parent_id", "id");
+	public function post(): MorphTo {
+		return $this->morphTo(Post::class);
 	}
 
 
 	/**
-	 * @return BelongsToMany
+	 * @return MorphTo
 	 */
-	public function products(): BelongsToMany {
-		return $this->belongsToMany(Product::class);
+	public function product(): MorphTo {
+		return $this->morphTo(Product::class);
+	}
+
+
+	/**
+	 * @return MorphTo
+	 */
+	public function messageStream(): MorphTo {
+		return $this->morphTo(MessageStream::class);
 	}
 
 

@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Class ProductView
+ * Class EventLog
  *
  * @package App\Models
  * @author Kovacs Mate
  * @copyright 2022 Kovacs Mate
  */
-class ProductView extends Model {
+class EventLog extends Model {
 
     use HasFactory;
 
@@ -21,23 +21,25 @@ class ProductView extends Model {
 	 * @var string[] $fillable
 	 */
 	protected $fillable = [
-		'count',
-		'date'
-	];
-
-	/**
-	 * @var string[] $casts
-	 */
-	protected $casts = [
-		'date' => 'date'
+		'event_type',
+		'old_data',
+		'new_data'
 	];
 
 
 	/**
 	 * @return BelongsTo
 	 */
-	public function product(): BelongsTo {
-		return $this->belongsTo(Product::class);
+	public function user(): BelongsTo {
+		return $this->belongsTo(User::class);
+	}
+
+
+	/**
+	 * @return BelongsTo
+	 */
+	public function adminUser(): BelongsTo {
+		return $this->belongsTo(AdminUser::class);
 	}
 
 

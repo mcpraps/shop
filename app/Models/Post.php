@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
  * Class Post
@@ -46,10 +47,26 @@ class Post extends Model {
 
 
 	/**
-	 * @return HasMany
+	 * @return MorphMany
 	 */
-	public function images(): HasMany {
-		return $this->hasMany(Image::class);
+	public function images(): MorphMany {
+		return $this->morphMany(File::class,'type');
+	}
+
+
+	/**
+	 * @return BelongsTo
+	 */
+	public function createdBy(): BelongsTo {
+		return $this->belongsTo(AdminUser::class, "created_by");
+	}
+
+
+	/**
+	 * @return BelongsTo
+	 */
+	public function updatedBy(): BelongsTo {
+		return $this->belongsTo(AdminUser::class, "updated_by");
 	}
 
 

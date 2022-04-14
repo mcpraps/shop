@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
@@ -29,10 +30,25 @@ class Route extends Model {
 		'title',
 		'slug',
 		'type',
+		'show_in_menu',
 		'order',
 		'meta_title',
 		'meta_description',
 		'meta_keywords'
+	];
+
+	/**
+	 * @var string[] $casts
+	 */
+	protected $casts = [
+		'show_in_menu' => 'boolean'
+	];
+
+	/**
+	 * @var bool[] $attributes
+	 */
+	protected $attributes = [
+		'show_in_menu' => true
 	];
 
 
@@ -57,6 +73,22 @@ class Route extends Model {
 	 */
 	public function posts(): HasOne {
 		return $this->hasOne(Post::class);
+	}
+
+
+	/**
+	 * @return BelongsTo
+	 */
+	public function createdBy(): BelongsTo {
+		return $this->belongsTo(AdminUser::class, "created_by");
+	}
+
+
+	/**
+	 * @return BelongsTo
+	 */
+	public function updatedBy(): BelongsTo {
+		return $this->belongsTo(AdminUser::class, "updated_by");
 	}
 
 

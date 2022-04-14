@@ -50,4 +50,20 @@ class CashRegister extends Model {
 	}
 
 
+	/**
+	 * @return BelongsTo
+	 */
+	public function createdBy(): BelongsTo {
+		return $this->belongsTo(AdminUser::class, "created_by");
+	}
+
+
+	/**
+	 * @return BelongsTo
+	 */
+	public function updatedBy(): BelongsTo {
+		return $this->belongsTo(AdminUser::class, "updated_by");
+	}
+
+
 }

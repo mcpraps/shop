@@ -5,43 +5,46 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * Class Coupon
+ * Class Offer
  *
  * @package App\Models
  * @author Kovacs Mate
  * @copyright 2022 Kovacs Mate
  */
-class Coupon extends Model {
+class Offer extends Model {
 
     use HasFactory;
 
 	/**
-	 * @var string[] $fillable
+	 * @var array $fillable
 	 */
 	protected $fillable = [
-		'code',
-		'discount',
-		'valid_from',
-		'valid_to'
+		'name',
+		'customer_name',
+		'customer_phone',
+		'customer_address',
+		'customer_email',
+		'valid_to',
+		'comment',
+		'discount'
 	];
 
 	/**
 	 * @var string[] $casts
 	 */
 	protected $casts = [
-		'valid_from' => 'datetime',
-		'valid_to' => 'datetime'
+		'valid_to' => 'date'
 	];
 
 
 	/**
-	 * @return HasMany
+	 * @return BelongsToMany
 	 */
-	public function orders(): HasMany {
-		return $this->hasMany(Order::class);
+	public function products(): BelongsToMany {
+		return $this->belongsToMany(Product::class);
 	}
 
 

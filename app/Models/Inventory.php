@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * Class Coupon
+ * Class Inventory
  *
  * @package App\Models
  * @author Kovacs Mate
  * @copyright 2022 Kovacs Mate
  */
-class Coupon extends Model {
+class Inventory extends Model {
 
     use HasFactory;
 
@@ -22,26 +22,30 @@ class Coupon extends Model {
 	 * @var string[] $fillable
 	 */
 	protected $fillable = [
-		'code',
-		'discount',
-		'valid_from',
-		'valid_to'
+		'date'
 	];
 
 	/**
 	 * @var string[] $casts
 	 */
 	protected $casts = [
-		'valid_from' => 'datetime',
-		'valid_to' => 'datetime'
+		'date' => 'date'
 	];
+
+
+	/**
+	 * @return BelongsTo
+	 */
+	public function physicalStore(): BelongsTo {
+		return $this->belongsTo(PhysicalStore::class);
+	}
 
 
 	/**
 	 * @return HasMany
 	 */
-	public function orders(): HasMany {
-		return $this->hasMany(Order::class);
+	public function inventoryItem(): HasMany {
+		return $this->hasMany(InventoryItem::class);
 	}
 
 

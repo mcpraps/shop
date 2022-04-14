@@ -17,12 +17,17 @@ class CalendarNote extends Model {
 
     use HasFactory;
 
+	const VISIBILITY_ALL = 1;
+	const VISIBILITY_ME = 2;
+	const VISIBILITY_CUSTOM = 3;
+
 	/**
 	 * @var string[] $fillable
 	 */
 	protected $fillable = [
 		'text',
 		'date',
+		'visibility'
 	];
 
 	/**
@@ -36,8 +41,16 @@ class CalendarNote extends Model {
 	/**
 	 * @return BelongsTo
 	 */
-	public function adminUser(): BelongsTo {
-		return $this->belongsTo(AdminUser::class);
+	public function createdBy(): BelongsTo {
+		return $this->belongsTo(AdminUser::class, "created_by");
+	}
+
+
+	/**
+	 * @return BelongsTo
+	 */
+	public function visibleFor(): BelongsTo {
+		return $this->belongsTo(AdminUser::class, "visible_for");
 	}
 
 

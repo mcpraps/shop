@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Class ProductCategory
+ * Class ProductEventLog
  *
  * @package App\Models
  * @author Kovacs Mate
  * @copyright 2022 Kovacs Mate
  */
-class StaticContent extends Model {
+class ProductEventLog extends Model {
 
     use HasFactory;
 
@@ -21,31 +21,24 @@ class StaticContent extends Model {
 	 * @var string[] $fillable
 	 */
 	protected $fillable = [
-		'content'
+		'event_type',
+		'cookie_id'
 	];
 
 
 	/**
 	 * @return BelongsTo
 	 */
-	public function route(): BelongsTo {
-		return $this->belongsTo(Route::class);
+	public function product(): BelongsTo {
+		return $this->belongsTo(Product::class);
 	}
 
 
 	/**
 	 * @return BelongsTo
 	 */
-	public function createdBy(): BelongsTo {
-		return $this->belongsTo(AdminUser::class, "created_by");
-	}
-
-
-	/**
-	 * @return BelongsTo
-	 */
-	public function updatedBy(): BelongsTo {
-		return $this->belongsTo(AdminUser::class, "updated_by");
+	public function user(): BelongsTo {
+		return $this->belongsTo(User::class);
 	}
 
 

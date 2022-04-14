@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Product
@@ -17,6 +19,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Product extends Model {
 
+	use SoftDeletes;
     use HasFactory;
 
 	/**
@@ -30,14 +33,26 @@ class Product extends Model {
 		'quantity',
 		'net_price',
 		'gross_price',
-		'sale_price'
+		'sale_price',
+		'warranty_month',
+		'order',
+		'disable_review'
 	];
 
 	/**
 	 * @var string[] $casts
 	 */
 	protected $casts = [
-		'hide_from_shop' => 'boolean'
+		'hide_from_shop' => 'boolean',
+		'disable_review' => 'boolean',
+	];
+
+	/**
+	 * @var false[] $attributes
+	 */
+	protected $attributes = [
+		'disable_review' => false,
+		'hide_from_shop' => false
 	];
 
 
@@ -58,10 +73,58 @@ class Product extends Model {
 
 
 	/**
+	 * @return MorphMany
+	 */
+	public function images(): MorphMany {
+		return $this->morphMany(File::class,'type');
+	}
+
+
+	/**
 	 * @return HasMany
 	 */
-	public function images(): HasMany {
-		return $this->hasMany(Image::class);
+	public function sales(): HasMany {
+		return $this->hasMany(Sale::class);
+	}
+
+
+	/**
+	 * @return HasMany
+	 */
+	public function inventoryItems(): HasMany {
+		return $this->hasMany(InventoryItem::class);
+	}
+
+
+	/**
+	 * @return HasMany
+	 */
+	public function productEvents(): HasMany {
+		return $this->hasMany(ProductEvent::class);
+	}
+
+
+	/**
+	 * @return HasMany
+	 */
+	public function productEventLogs(): HasMany {
+		return $this->hasMany(ProductEventLog::class);
+	}
+
+
+	/**
+	 * @return BelongsToMany
+	 */
+	public function offers(): BelongsToMany {
+		return $this->belongsToMany(Offer::class);
+	}
+
+
+	/**
+	 * @return BelongsToMany
+	 */
+	public function discounts(): BelongsToMany {
+		return $this->belongsToMany(Discount::class);
 	}
 
 
@@ -86,6 +149,38 @@ class Product extends Model {
 	 */
 	public function productViews(): HasMany {
 		return $this->hasMany(ProductView::class);
+	}
+
+
+	/**
+	 * @return HasMany
+	 */
+	public function productReviews(): HasMany {
+		return $this->hasMany(ProductReview::class);
+	}
+
+
+	/**
+	 * @return BelongsTo
+	 */
+	public function createdBy(): BelongsTo {
+		return $this->belongsTo(AdminUser::class, "created_by");
+	}
+
+
+	/**
+	 * @return BelongsTo
+	 */
+	public function updatedBy(): BelongsTo {
+		return $this->belongsTo(AdminUser::class, "updated_by");
+	}
+
+
+	/**
+	 * @return BelongsTo
+	 */
+	public function deletedBy(): BelongsTo {
+		return $this->belongsTo(AdminUser::class, "deleted_by");
 	}
 
 
