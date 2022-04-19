@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Laratrust\Traits\LaratrustUserTrait;
 
 /**
@@ -20,6 +21,7 @@ class AdminUser extends Authenticatable {
 
 	use LaratrustUserTrait;
     use HasFactory;
+	use Notifiable;
 
     /**
      * @var string[] $fillable
@@ -61,7 +63,7 @@ class AdminUser extends Authenticatable {
 	 * @return BelongsToMany
 	 */
 	public function roles(): BelongsToMany {
-		return $this->belongsToMany(Role::class);
+		return $this->belongsToMany(Role::class, 'roles_admin_users');
 	}
 
 

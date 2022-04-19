@@ -30,7 +30,7 @@ class Role extends LaratrustRole {
 	 * @return BelongsToMany
 	 */
 	public function adminUsers(): BelongsToMany {
-		return $this->belongsToMany(AdminUser::class);
+		return $this->belongsToMany(AdminUser::class, 'roles_admin_users');
 	}
 
 
