@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * Class Partner
+ * Class Client
  *
  * @package App\Models
  * @author Kovacs Mate
  * @copyright 2022 Kovacs Mate
  */
-class Partner extends Model {
+class Client extends Model {
 
     use HasFactory;
 

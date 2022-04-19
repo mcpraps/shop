@@ -21,8 +21,8 @@ class OutgoingInvoice extends Model {
 	/**
 	 * @return BelongsTo
 	 */
-	public function partner(): BelongsTo {
-		return $this->belongsTo(Partner::class);
+	public function client(): BelongsTo {
+		return $this->belongsTo(Client::class);
 	}
 
 
