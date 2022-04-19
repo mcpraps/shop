@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Laratrust\Models\LaratrustRole;
 
 /**
  * Class Role
@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @author Kovacs Mate
  * @copyright 2022 Kovacs Mate
  */
-class Role extends Model {
+class Role extends LaratrustRole {
 
     use HasFactory;
 
