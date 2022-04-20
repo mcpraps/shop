@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Auth\PasswordBroker;
 use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
+use Illuminate\Support\Facades\Password;
 use Illuminate\View\View;
 
 /**
@@ -36,6 +38,16 @@ class ForgotPasswordController extends Controller {
 	 */
 	public function showLinkRequestForm(): View {
 		return view('public.admin-forgot-pw');
+	}
+
+
+	/**
+	 * Get the broker to be used during password reset.
+	 *
+	 * @return PasswordBroker
+	 */
+	public function broker(): PasswordBroker {
+		return Password::broker('admin_users');
 	}
 
 

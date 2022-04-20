@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 /**
@@ -66,6 +68,16 @@ class LoginController extends Controller {
 	 */
 	protected function credentials(Request $request): array {
 		return [$this->username() => $request->{$this->username()}, 'password' => $request->password, 'is_active' => 1];
+	}
+
+
+	/**
+	 * Get the guard to be used during authentication.
+	 *
+	 * @return StatefulGuard
+	 */
+	protected function guard(): StatefulGuard {
+		return Auth::guard('admin_users');
 	}
 
 

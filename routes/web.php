@@ -17,9 +17,11 @@ use Illuminate\Support\Facades\Route;
 Auth::routes(['register' => false]);
 Route::group([
 	'prefix'        => 'admin',
-	'middleware'    => 'auth',
+	'middleware'    => 'auth:admin_users',
 	'as'            => 'admin.',
 	'namespace'     => 'Admin'
 ], function () {
-
+	Route::get('/dashboard', function (Request $request) {
+		return 'test';
+	});
 });
